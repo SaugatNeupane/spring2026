@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest #hello
     env:
       SERVER_IP: ${{ vars.SERVER_IP }}
 
