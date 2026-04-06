@@ -30,7 +30,7 @@ jobs:
           touch ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
       
-      - name: "Put SSH Key in Docker file for Server Access"
+      - name: "Put SSH Key in Docker file for Server Access" #help
         run: | 
           touch pem.pem
           echo $SSH_KEY64 | base64 -d > pem.pem && chmod 400 pem.pem
