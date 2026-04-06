@@ -1,10 +1,464 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Saugat Neupane</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saugat Neupane | Portfolio</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap");
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #00e5c3;
+      --teal-dim: #00b89c;
+      --bg: #080d11;
+      --bg2: #0d1419;
+      --bg3: #111c22;
+      --border: rgba(255,255,255,0.07);
+      --text: #e2edf3;
+      --muted: #6b8a99;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: -200px; left: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,229,195,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 0 2rem; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(8,13,17,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: "Syne", sans-serif; font-weight: 800; font-size: 1.1rem;
+      color: var(--teal); letter-spacing: -0.02em; text-decoration: none;
+    }
+
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+
+    nav ul li a {
+      text-decoration: none; color: var(--muted); font-size: 0.78rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      font-family: "DM Mono", monospace; transition: color 0.2s;
+    }
+
+    nav ul li a:hover { color: var(--teal); }
+
+    #hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; padding: 0 4rem;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-label {
+      font-family: "DM Mono", monospace; font-size: 0.75rem;
+      color: var(--teal); letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+    }
+
+    .hero-label::before {
+      content: ""; display: inline-block; width: 32px; height: 1px; background: var(--teal);
+    }
+
+    .hero-name {
+      font-family: "Syne", sans-serif; font-weight: 800;
+      font-size: clamp(3rem, 8vw, 7rem); line-height: 0.95;
+      letter-spacing: -0.04em; color: #fff; margin-bottom: 1rem;
+    }
+
+    .hero-name span { color: var(--teal); }
+
+    .hero-role {
+      font-family: "DM Mono", monospace; font-size: 1rem;
+      color: var(--muted); margin-bottom: 2rem;
+    }
+
+    .hero-desc { max-width: 480px; color: var(--muted); font-size: 0.95rem; line-height: 1.8; }
+
+    .hero-grid {
+      position: absolute; right: 0; top: 0; width: 50%; height: 100%;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.3), transparent);
+      mask-image: linear-gradient(to left, rgba(0,0,0,0.3), transparent);
+      pointer-events: none;
+    }
+
+    .hero-orb {
+      position: absolute; right: 12%; top: 50%; transform: translateY(-50%);
+      width: 340px; height: 340px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,195,0.12) 0%, rgba(0,184,156,0.04) 50%, transparent 70%);
+      border: 1px solid rgba(0,229,195,0.1);
+      animation: orb-pulse 4s ease-in-out infinite;
+    }
+
+    .hero-orb::after {
+      content: ""; position: absolute; inset: 40px;
+      border-radius: 50%; border: 1px solid rgba(0,229,195,0.08);
+    }
+
+    @keyframes orb-pulse {
+      0%, 100% { transform: translateY(-50%) scale(1); opacity: 1; }
+      50% { transform: translateY(-50%) scale(1.05); opacity: 0.7; }
+    }
+
+    section { position: relative; z-index: 1; }
+
+    .section-inner { max-width: 900px; margin: 0 auto; padding: 6rem 2rem; }
+
+    .section-label {
+      font-family: "DM Mono", monospace; font-size: 0.7rem;
+      color: var(--teal); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: "Syne", sans-serif; font-weight: 700; font-size: 2.2rem;
+      letter-spacing: -0.03em; color: #fff; margin-bottom: 3rem; line-height: 1.1;
+    }
+
+    .objective-text {
+      font-size: 1.05rem; color: var(--muted); line-height: 1.9;
+      border-left: 2px solid var(--teal); padding-left: 1.5rem; max-width: 680px;
+    }
+
+    #skills { background: var(--bg2); }
+
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1px; border: 1px solid var(--border);
+    }
+
+    .skill-item {
+      padding: 1.2rem 1.4rem; background: var(--bg2);
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      transition: background 0.2s; display: flex; align-items: center; gap: 0.7rem;
+    }
+
+    .skill-item:hover { background: var(--bg3); }
+
+    .skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+    .skill-name { font-family: "DM Mono", monospace; font-size: 0.8rem; color: var(--text); }
+
+    .exp-card {
+      padding: 2rem; border: 1px solid var(--border); border-radius: 3px;
+      margin-bottom: 1.5rem; background: var(--bg2);
+      position: relative; overflow: hidden; transition: border-color 0.3s;
+    }
+
+    .exp-card::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+      background: var(--teal); transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s;
+    }
+
+    .exp-card:hover { border-color: rgba(0,229,195,0.3); }
+    .exp-card:hover::before { transform: scaleY(1); }
+
+    .exp-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.4rem;
+    }
+
+    .exp-company { font-family: "Syne", sans-serif; font-weight: 700; font-size: 1.15rem; color: #fff; }
+
+    .exp-period {
+      font-family: "DM Mono", monospace; font-size: 0.72rem; color: var(--teal);
+      letter-spacing: 0.05em; padding: 0.2rem 0.6rem;
+      border: 1px solid rgba(0,229,195,0.3); border-radius: 2px;
+    }
+
+    .exp-role { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; font-style: italic; }
+
+    .exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .exp-list li {
+      font-size: 0.88rem; color: var(--muted); padding-left: 1rem;
+      position: relative; line-height: 1.6;
+    }
+
+    .exp-list li::before { content: "→"; position: absolute; left: 0; color: var(--teal); font-size: 0.75rem; }
+
+    #education { background: var(--bg2); }
+
+    .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+
+    .edu-card {
+      padding: 1.5rem; border: 1px solid var(--border); border-radius: 3px;
+      background: var(--bg); transition: border-color 0.3s;
+    }
+
+    .edu-card:hover { border-color: rgba(0,229,195,0.3); }
+
+    .edu-degree { font-family: "Syne", sans-serif; font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 0.3rem; }
+    .edu-school { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .edu-year { font-family: "DM Mono", monospace; font-size: 0.72rem; color: var(--teal); }
+
+    .cert-chip {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.2rem; background: var(--bg3);
+      border: 1px solid rgba(0,229,195,0.25); border-radius: 2px;
+      font-family: "DM Mono", monospace; font-size: 0.8rem; color: var(--teal);
+    }
+
+    .cert-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+
+    #contact { background: var(--bg2); }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .contact-item {
+      display: flex; flex-direction: column; gap: 0.3rem;
+      padding: 1.2rem 1.4rem; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 3px; transition: border-color 0.3s;
+    }
+
+    .contact-item:hover { border-color: rgba(0,229,195,0.3); }
+
+    .contact-label {
+      font-family: "DM Mono", monospace; font-size: 0.68rem;
+      color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase;
+    }
+
+    .contact-value { font-size: 0.9rem; color: var(--text); text-decoration: none; }
+    .contact-value:hover { color: var(--teal); }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem; text-align: center;
+      font-family: "DM Mono", monospace; font-size: 0.72rem;
+      color: var(--muted); letter-spacing: 0.05em; position: relative; z-index: 1;
+    }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      #hero { padding: 0 1.5rem; }
+      .hero-name { font-size: 3rem; }
+      .hero-orb, .hero-grid { display: none; }
+      .section-inner { padding: 4rem 1.5rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 4px; }
+  </style>
 </head>
 <body>
-    <h1>Welcome to My App v2</h1>
-    <p>This is a simple HTML page.</p>
+
+<nav>
+  <a class="nav-logo" href="#hero">sn.</a>
+  <ul>
+    <li><a href="#objective">Objective</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#training">Training</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orb"></div>
+  <div style="position:relative;z-index:1;">
+    <p class="hero-label">DevOps &amp; Infrastructure Engineer</p>
+    <h1 class="hero-name">Saugat<br><span>Neupane</span></h1>
+    <p class="hero-role">// Building reliable platforms &amp; observable systems</p>
+    <p class="hero-desc">Hands-on experience in Linux, observability, virtualization, cloud, and automation — with a bias for clean infrastructure.</p>
+  </div>
+</section>
+
+<section id="objective">
+  <div class="section-inner reveal">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Career Objective</h2>
+    <p class="objective-text">A competent and motivated DevOps/Infrastructure Engineer with hands-on experience in Linux, virtualization, monitoring tools, and scripting languages. Looking for an organization that provides opportunities for learning and growth while contributing to its success.</p>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-inner reveal">
+    <p class="section-label">Expertise</p>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Linux &amp; Windows OS</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Docker &amp; Podman</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">VMware / KVM / XCP-NG / Verge.io</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">CloudStack &amp; Jelastic</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Azure Cloud</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">TrueNAS &amp; Open-E Storage</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">MySQL / PostgreSQL / MSSQL</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Zabbix &amp; Ninja RMM</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Arcserve / Ahsay / Commvault</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Python &amp; Bash Scripting</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">HTML &amp; CSS</span></div>
+      <div class="skill-item"><span class="skill-dot"></span><span class="skill-name">Communication &amp; Teamwork</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-inner">
+    <p class="section-label">Career</p>
+    <h2 class="section-title">Work Experience</h2>
+
+    <div class="exp-card reveal">
+      <div class="exp-header">
+        <span class="exp-company">F1Soft International Pvt. Ltd.</span>
+        <span class="exp-period">October 2025 &ndash; Present</span>
+      </div>
+      <p class="exp-role">System, Support &amp; Deployment Engineer</p>
+      <ul class="exp-list">
+        <li>Used Ansible to automate routine DevOps tasks such as package installation, service management, and configuration updates</li>
+        <li>Configured NGINX and HAProxy with load-balancing and caching rules</li>
+        <li>Applied application and OS patches, strengthening system security posture</li>
+        <li>Built and deployed Docker images</li>
+        <li>Configured k3s on VMs with multiple worker nodes and used Rancher to manage them</li>
+      </ul>
+    </div>
+
+    <div class="exp-card reveal">
+      <div class="exp-header">
+        <span class="exp-company">Nepal Mobility Solutions Pvt. Ltd. (JumJum)</span>
+        <span class="exp-period">March 2025 &ndash; October 2025</span>
+      </div>
+      <p class="exp-role">Application Reliability Engineer</p>
+      <ul class="exp-list">
+        <li>Application support and troubleshooting via internal portal</li>
+        <li>Used Jira for ticketing and customer issue tracking</li>
+        <li>Analyzed metrics via Metabase and Kibana for system reliability</li>
+        <li>Performed root cause analysis and improved fault resilience</li>
+        <li>Worked heavily on Linux systems to optimize performance</li>
+      </ul>
+    </div>
+
+    <div class="exp-card reveal">
+      <div class="exp-header">
+        <span class="exp-company">Datahub Pvt. Ltd.</span>
+        <span class="exp-period">Jan 2022 &ndash; Feb 2025</span>
+      </div>
+      <p class="exp-role">Infrastructure Support Engineer</p>
+      <ul class="exp-list">
+        <li>Provisioned and deployed bare-metal hypervisors (VMware, XCP-NG, Verge.io)</li>
+        <li>Installed &amp; configured storage solutions: TrueNAS, Open-E</li>
+        <li>Configured Docker &amp; Podman containers for Dev &amp; Prod workloads</li>
+        <li>Designed Zabbix monitoring for servers, containers, and services</li>
+        <li>Performed User Acceptance Testing (UAT) on internal platforms</li>
+        <li>Created automation scripts using Python &amp; Bash</li>
+        <li>Configured &amp; managed backups using Arcserve, Ahsay, and Commvault</li>
+        <li>Provided Linux &amp; Windows support, resolved technical support tickets</li>
+        <li>Assisted cloud migration, VM provisioning, and client infrastructure setup</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-inner reveal">
+    <p class="section-label">Academic</p>
+    <h2 class="section-title">Education</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <p class="edu-degree">B.Sc. CSIT</p>
+        <p class="edu-school">Swastik College (TU Affiliated)</p>
+        <p class="edu-year">2073 &ndash; 2078</p>
+      </div>
+      <div class="edu-card">
+        <p class="edu-degree">+2 Science</p>
+        <p class="edu-school">Ambition Academy</p>
+        <p class="edu-year">2071 &ndash; 2073</p>
+      </div>
+      <div class="edu-card">
+        <p class="edu-degree">SLC</p>
+        <p class="edu-school">Apex Life School</p>
+        <p class="edu-year">2070</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="training">
+  <div class="section-inner reveal">
+    <p class="section-label">Certifications</p>
+    <h2 class="section-title">Trainings &amp; Certifications</h2>
+    <span class="cert-chip">Cisco Certified Network Associate (CCNA)</span>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner reveal">
+    <p class="section-label">Reach out</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span class="contact-label">Personal Email</span>
+        <a href="mailto:saugatneupane31@gmail.com" class="contact-value">saugatneupane31@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Work Email</span>
+        <a href="mailto:saugat.neupane@f1soft.com" class="contact-value">saugat.neupane@f1soft.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Phone</span>
+        <span class="contact-value">+977 9860905972</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Location</span>
+        <span class="contact-value">Kaushaltar, Bhaktapur</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 Saugat Neupane. All rights reserved.
+</footer>
+
+<script>
+  (function() {
+    var reveals = document.querySelectorAll(".reveal");
+    // Show all immediately so page is never blank
+    reveals.forEach(function(el) { el.classList.add("visible"); });
+
+    // Then reset and animate on scroll if IntersectionObserver is available
+    if ("IntersectionObserver" in window) {
+      reveals.forEach(function(el) { el.classList.remove("visible"); });
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05 });
+      reveals.forEach(function(el) { observer.observe(el); });
+    }
+  })();
+</script>
+
 </body>
 </html>
