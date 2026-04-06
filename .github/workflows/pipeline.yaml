@@ -17,8 +17,8 @@ jobs:
       - name: "Build Docker Image"
         run: |
           docker login -u saugatneupane31 -p $DOCKERHUB_PAT
-          docker build -t saugatneupane31/getting-started-todo-app .
-          docker push saugatneupane31/getting-started-todo-app
+          docker build -t saugatneupane31/not-nginx .
+          docker push saugatneupane31/not-nginx
         env:
           DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT }}
 
