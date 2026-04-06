@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: "Build Docker Image"
-        run:
+        run: |
           docker login -u saugatneupane31 -p $DOCKERHUB_PAT
           docker build -t saugatneupane31/not-nginx .
           docker push saugatneupane31/not-nginx
@@ -23,7 +23,7 @@ jobs:
           DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT }}
 
       - name: "Configure SSH"
-        run:
+        run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
@@ -31,7 +31,7 @@ jobs:
           chmod 600 ~/.ssh/known_hosts
       
       - name: "Put SSH Key in Docker file for Server Access"
-        run: 
+        run: | 
           touch pem.pem
           echo $SSH_KEY64 | base64 -d > pem.pem && chmod 400 pem.pem
           ssh-keygen -R $SERVER_IP
@@ -39,7 +39,7 @@ jobs:
           SSH_KEY64: ${{ secrets.SSH_KEY64 }}
 
       - name: "Docker Pull and Restart Docker"
-        run:
+        run: |
           ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull saugatneupane31/getting-started-todo-app'
           ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop notnginxx && docker rm notnginxx'
           ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name notnginxx -p 80:3000 -d saugatneupane31/getting-started-todo-app'
