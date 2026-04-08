@@ -2,12 +2,29 @@ name: "Deploy to Server"
 
 on:
   push:
-      branches:
-        - main
+    branches:
+      - main
 
 jobs:
+  build:
+    name: Build and analyze
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for better Sonar analysis
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
   deploy:
-    runs-on: ubuntu-latest #hello
+    runs-on: ubuntu-latest
+    needs: build   #ensures deploy runs only if build succeeds
+
     env:
       SERVER_IP: ${{ vars.SERVER_IP }}
 
@@ -30,7 +47,7 @@ jobs:
           touch ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
       
-      - name: "Put SSH Key in Docker file for Server Access" #help
+      - name: "Put SSH Key in Docker file for Server Access"
         run: | 
           touch pem.pem
           echo $SSH_KEY64 | base64 -d > pem.pem && chmod 400 pem.pem
@@ -41,5 +58,5 @@ jobs:
       - name: "Docker Pull and Restart Docker"
         run: |
           ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull saugatneupane31/not-nginx'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop not-nginx && docker rm not-nginx'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop not-nginx || true && docker rm not-nginx || true'
           ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name not-nginx -p 80:80 -d saugatneupane31/not-nginx'
