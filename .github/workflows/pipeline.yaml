@@ -57,6 +57,6 @@ jobs:
 
       - name: "Docker Pull and Restart Docker"
         run: |
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull saugatneupane31/not-nginx'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop not-nginx || true && docker rm not-nginx || true'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name not-nginx -p 80:80 -d saugatneupane31/not-nginx'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull saugatneupane31/portfolio_saugat'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop portfolio_saugat || true && docker rm portfolio_saugat || true'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name portfolio_saugat -p 80:80 -d saugatneupane31/portfolio_saugat'
