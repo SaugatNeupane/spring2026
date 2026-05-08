@@ -2,273 +2,531 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Saugat Neupane | Portfolio</title>
+
+  <!-- Google Fonts: Syne for headings, DM Mono for labels/code, Inter for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap"); #test
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --teal: #00e5c3;  #test
-      --teal-dim: #00b89c;
-      --bg: #080d11;
-      --bg2: #0d1419;
-      --bg3: #111c22;
-      --border: rgba(255,255,255,0.07);
-      --text: #e2edf3;
-      --muted: #6b8a99;
+    /* ── Reset ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    /* ── Global CSS Variables ── */
+    :root {
+      --teal:   #00e5c3;   /* primary accent colour */
+      --bg:     #080d11;   /* darkest background */
+      --bg2:    #0d1419;   /* slightly lighter background for alternate sections */
+      --bg3:    #111c22;   /* hover state background */
+      --border: rgba(255, 255, 255, 0.07);  /* subtle border colour */
+      --text:   #e2edf3;   /* main text colour */
+      --muted:  #6b8a99;   /* secondary / muted text */
+    }
+
+    /* ── Base Styles ── */
+    html {
+      scroll-behavior: smooth; /* smooth scrolling when clicking nav links */
+    }
 
     body {
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
       font-family: "Inter", sans-serif;
       font-size: 16px;
       line-height: 1.7;
-      overflow-x: hidden;
+      overflow-x: hidden; /* prevent horizontal scroll on small screens */
     }
 
-    body::after {
-      content: "";
-      position: fixed;
-      top: -200px; left: -200px;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(0,229,195,0.07) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
+    /* ── Navigation Bar ── */
     nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
-      padding: 0 2rem; height: 60px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(8,13,17,0.88);
-      backdrop-filter: blur(14px);
+      position: fixed;         /* stays at top while scrolling */
+      top: 0;
+      width: 100%;
+      z-index: 100;            /* renders above all other elements */
+      height: 60px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(8, 13, 17, 0.90);
       border-bottom: 1px solid var(--border);
     }
 
     .nav-logo {
-      font-family: "Syne", sans-serif; font-weight: 800; font-size: 1.1rem;
-      color: var(--teal); letter-spacing: -0.02em; text-decoration: none;
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--teal);
+      text-decoration: none;
+      letter-spacing: -0.02em;
     }
 
-    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
 
     nav ul li a {
-      text-decoration: none; color: var(--muted); font-size: 0.78rem;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      font-family: "DM Mono", monospace; transition: color 0.2s;
+      text-decoration: none;
+      color: var(--muted);
+      font-family: "DM Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
     }
 
-    nav ul li a:hover { color: var(--teal); }
+    nav ul li a:hover {
+      color: var(--teal);
+    }
 
+    /* ── Hero Section ── */
     #hero {
-      min-height: 100vh; display: flex; flex-direction: column;
-      justify-content: center; padding: 0 4rem;
-      position: relative; overflow: hidden;
+      min-height: 100vh;      /* fills the full viewport height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 4rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    .hero-label {
-      font-family: "DM Mono", monospace; font-size: 0.75rem;
-      color: var(--teal); letter-spacing: 0.2em; text-transform: uppercase;
-      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
-    }
-
-    .hero-label::before {
-      content: ""; display: inline-block; width: 32px; height: 1px; background: var(--teal);
-    }
-
-    .hero-name {
-      font-family: "Syne", sans-serif; font-weight: 800;
-      font-size: clamp(3rem, 8vw, 7rem); line-height: 0.95;
-      letter-spacing: -0.04em; color: #fff; margin-bottom: 1rem;
-    }
-
-    .hero-name span { color: var(--teal); }
-
-    .hero-role {
-      font-family: "DM Mono", monospace; font-size: 1rem;
-      color: var(--muted); margin-bottom: 2rem;
-    }
-
-    .hero-desc { max-width: 480px; color: var(--muted); font-size: 0.95rem; line-height: 1.8; }
-
+    /* Decorative grid pattern on the right side of the hero */
     .hero-grid {
-      position: absolute; right: 0; top: 0; width: 50%; height: 100%;
-      background-image: linear-gradient(var(--border) 1px, transparent 1px),
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
         linear-gradient(90deg, var(--border) 1px, transparent 1px);
       background-size: 60px 60px;
-      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.3), transparent);
+      /* mask fades the grid out toward the left so it blends into the content area */
       mask-image: linear-gradient(to left, rgba(0,0,0,0.3), transparent);
+      pointer-events: none; /* grid is purely decorative; clicks pass through it */
+    }
+
+    /* Glowing orb behind the grid for visual depth */
+    .hero-orb {
+      position: absolute;
+      right: 12%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,195,0.12) 0%, transparent 70%);
+      border: 1px solid rgba(0,229,195,0.10);
+      animation: orb-pulse 4s ease-in-out infinite;
       pointer-events: none;
     }
 
-    .hero-orb {
-      position: absolute; right: 12%; top: 50%; transform: translateY(-50%);
-      width: 340px; height: 340px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,229,195,0.12) 0%, rgba(0,184,156,0.04) 50%, transparent 70%);
-      border: 1px solid rgba(0,229,195,0.1);
-      animation: orb-pulse 4s ease-in-out infinite;
-    }
-
+    /* Subtle inner ring inside the orb */
     .hero-orb::after {
-      content: ""; position: absolute; inset: 40px;
-      border-radius: 50%; border: 1px solid rgba(0,229,195,0.08);
+      content: "";
+      position: absolute;
+      inset: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,229,195,0.08);
     }
 
+    /* Orb breathing animation */
     @keyframes orb-pulse {
       0%, 100% { transform: translateY(-50%) scale(1); opacity: 1; }
-      50% { transform: translateY(-50%) scale(1.05); opacity: 0.7; }
+      50%       { transform: translateY(-50%) scale(1.05); opacity: 0.7; }
     }
 
-    section { position: relative; z-index: 1; }
+    /* Small label above the hero name */
+    .hero-label {
+      font-family: "DM Mono", monospace;
+      font-size: 0.75rem;
+      color: var(--teal);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
 
-    .section-inner { max-width: 900px; margin: 0 auto; padding: 6rem 2rem; }
+    /* Short horizontal line before the label text */
+    .hero-label::before {
+      content: "";
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background-color: var(--teal);
+    }
 
+    /* Large name heading using clamp() for fluid responsive sizing */
+    .hero-name {
+      font-family: "Syne", sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 7rem); /* min 3rem, preferred 8vw, max 7rem */
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .hero-name span {
+      color: var(--teal);
+    }
+
+    .hero-role {
+      font-family: "DM Mono", monospace;
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero-desc {
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    /* ── Section Layout ── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    /* Small coloured label above section titles */
     .section-label {
-      font-family: "DM Mono", monospace; font-size: 0.7rem;
-      color: var(--teal); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.5rem;
+      font-family: "DM Mono", monospace;
+      font-size: 0.7rem;
+      color: var(--teal);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
     }
 
     .section-title {
-      font-family: "Syne", sans-serif; font-weight: 700; font-size: 2.2rem;
-      letter-spacing: -0.03em; color: #fff; margin-bottom: 3rem; line-height: 1.1;
+      font-family: "Syne", sans-serif;
+      font-weight: 700;
+      font-size: 2.2rem;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 3rem;
+      line-height: 1.1;
     }
 
+    /* ── Objective Section ── */
     .objective-text {
-      font-size: 1.05rem; color: var(--muted); line-height: 1.9;
-      border-left: 2px solid var(--teal); padding-left: 1.5rem; max-width: 680px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.9;
+      border-left: 2px solid var(--teal);
+      padding-left: 1.5rem;
+      max-width: 680px;
     }
 
-    #skills { background: var(--bg2); }
+    /* ── Skills Section ── */
+    #skills {
+      background-color: var(--bg2);
+    }
 
+    /* CSS Grid: fills as many 200px columns as the container allows */
     .skills-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1px; border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--border);
     }
 
     .skill-item {
-      padding: 1.2rem 1.4rem; background: var(--bg2);
-      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      transition: background 0.2s; display: flex; align-items: center; gap: 0.7rem;
+      padding: 1.2rem 1.4rem;
+      background-color: var(--bg2);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      transition: background-color 0.2s;
     }
 
-    .skill-item:hover { background: var(--bg3); }
+    .skill-item:hover {
+      background-color: var(--bg3);
+    }
 
-    .skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+    .skill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--teal);
+      flex-shrink: 0;
+    }
 
-    .skill-name { font-family: "DM Mono", monospace; font-size: 0.8rem; color: var(--text); }
+    .skill-name {
+      font-family: "DM Mono", monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
 
+    /* ── Experience Section ── */
     .exp-card {
-      padding: 2rem; border: 1px solid var(--border); border-radius: 3px;
-      margin-bottom: 1.5rem; background: var(--bg2);
-      position: relative; overflow: hidden; transition: border-color 0.3s;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      margin-bottom: 1.5rem;
+      background-color: var(--bg2);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
     }
 
+    /* Left accent bar — scales up on hover using CSS transform */
     .exp-card::before {
-      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-      background: var(--teal); transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s;
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: var(--teal);
+      transform: scaleY(0);        /* hidden by default */
+      transform-origin: bottom;    /* grows upward from the bottom */
+      transition: transform 0.3s;
     }
 
-    .exp-card:hover { border-color: rgba(0,229,195,0.3); }
-    .exp-card:hover::before { transform: scaleY(1); }
+    .exp-card:hover {
+      border-color: rgba(0, 229, 195, 0.3);
+    }
+
+    .exp-card:hover::before {
+      transform: scaleY(1); /* reveal accent bar on hover */
+    }
 
     .exp-header {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;    /* wraps to next line on small screens */
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
-    .exp-company { font-family: "Syne", sans-serif; font-weight: 700; font-size: 1.15rem; color: #fff; }
+    .exp-company {
+      font-family: "Syne", sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #fff;
+    }
 
     .exp-period {
-      font-family: "DM Mono", monospace; font-size: 0.72rem; color: var(--teal);
-      letter-spacing: 0.05em; padding: 0.2rem 0.6rem;
-      border: 1px solid rgba(0,229,195,0.3); border-radius: 2px;
+      font-family: "DM Mono", monospace;
+      font-size: 0.72rem;
+      color: var(--teal);
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid rgba(0, 229, 195, 0.3);
+      border-radius: 2px;
     }
 
-    .exp-role { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; font-style: italic; }
+    .exp-role {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 1.2rem;
+    }
 
-    .exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .exp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
 
     .exp-list li {
-      font-size: 0.88rem; color: var(--muted); padding-left: 1rem;
-      position: relative; line-height: 1.6;
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.6;
     }
 
-    .exp-list li::before { content: "→"; position: absolute; left: 0; color: var(--teal); font-size: 0.75rem; }
+    /* Arrow bullet point using ::before pseudo-element */
+    .exp-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-size: 0.75rem;
+    }
 
-    #education { background: var(--bg2); }
+    /* ── Education Section ── */
+    #education {
+      background-color: var(--bg2);
+    }
 
-    .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
 
     .edu-card {
-      padding: 1.5rem; border: 1px solid var(--border); border-radius: 3px;
-      background: var(--bg); transition: border-color 0.3s;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background-color: var(--bg);
+      transition: border-color 0.3s;
     }
 
-    .edu-card:hover { border-color: rgba(0,229,195,0.3); }
+    .edu-card:hover {
+      border-color: rgba(0, 229, 195, 0.3);
+    }
 
-    .edu-degree { font-family: "Syne", sans-serif; font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 0.3rem; }
-    .edu-school { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
-    .edu-year { font-family: "DM Mono", monospace; font-size: 0.72rem; color: var(--teal); }
+    .edu-degree {
+      font-family: "Syne", sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
 
+    .edu-school {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-year {
+      font-family: "DM Mono", monospace;
+      font-size: 0.72rem;
+      color: var(--teal);
+    }
+
+    /* ── Training / Certifications Section ── */
     .cert-chip {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.6rem 1.2rem; background: var(--bg3);
-      border: 1px solid rgba(0,229,195,0.25); border-radius: 2px;
-      font-family: "DM Mono", monospace; font-size: 0.8rem; color: var(--teal);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background-color: var(--bg3);
+      border: 1px solid rgba(0, 229, 195, 0.25);
+      border-radius: 2px;
+      font-family: "DM Mono", monospace;
+      font-size: 0.8rem;
+      color: var(--teal);
     }
 
-    .cert-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+    /* Green dot before certification text */
+    .cert-chip::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--teal);
+    }
 
-    #contact { background: var(--bg2); }
+    /* ── Contact Section ── */
+    #contact {
+      background-color: var(--bg2);
+    }
 
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
 
     .contact-item {
-      display: flex; flex-direction: column; gap: 0.3rem;
-      padding: 1.2rem 1.4rem; background: var(--bg);
-      border: 1px solid var(--border); border-radius: 3px; transition: border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 1.2rem 1.4rem;
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      transition: border-color 0.3s;
     }
 
-    .contact-item:hover { border-color: rgba(0,229,195,0.3); }
+    .contact-item:hover {
+      border-color: rgba(0, 229, 195, 0.3);
+    }
 
     .contact-label {
-      font-family: "DM Mono", monospace; font-size: 0.68rem;
-      color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase;
+      font-family: "DM Mono", monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
-    .contact-value { font-size: 0.9rem; color: var(--text); text-decoration: none; }
-    .contact-value:hover { color: var(--teal); }
+    .contact-value {
+      font-size: 0.9rem;
+      color: var(--text);
+      text-decoration: none;
+    }
 
+    .contact-value:hover {
+      color: var(--teal);
+    }
+
+    /* ── Footer ── */
     footer {
-      border-top: 1px solid var(--border); padding: 2rem; text-align: center;
-      font-family: "DM Mono", monospace; font-size: 0.72rem;
-      color: var(--muted); letter-spacing: 0.05em; position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: "DM Mono", monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      position: relative;
+      z-index: 1;
     }
 
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    /* ── Scroll Reveal ── */
+    /* Elements start invisible and slightly shifted down */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
 
+    /* JavaScript adds this class when the element enters the viewport */
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive: Mobile ── */
     @media (max-width: 768px) {
-      #hero { padding: 0 1.5rem; }
-      .hero-name { font-size: 3rem; }
-      .hero-orb, .hero-grid { display: none; }
+      #hero        { padding: 0 1.5rem; }
+      .hero-name   { font-size: 3rem; }
+      .hero-orb,
+      .hero-grid   { display: none; }    /* hide decorative elements on mobile */
       .section-inner { padding: 4rem 1.5rem; }
-      .contact-grid { grid-template-columns: 1fr; }
-      nav ul { display: none; }
+      .contact-grid  { grid-template-columns: 1fr; }  /* stack to single column */
+      nav ul         { display: none; }  /* hide nav links on mobile */
     }
 
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 4px; }
+    /* ── Custom Scrollbar ── */
+    ::-webkit-scrollbar       { width: 4px; }
+    ::-webkit-scrollbar-track { background-color: var(--bg); }
+    ::-webkit-scrollbar-thumb { background-color: var(--bg3); border-radius: 4px; }
   </style>
 </head>
 <body>
 
+<!-- ── Navigation ── -->
 <nav>
   <a class="nav-logo" href="#hero">sn.</a>
   <ul>
@@ -281,25 +539,39 @@
   </ul>
 </nav>
 
+<!-- ── Hero ── -->
 <section id="hero">
+  <!-- Purely decorative background elements -->
   <div class="hero-grid"></div>
   <div class="hero-orb"></div>
-  <div style="position:relative;z-index:1;">
+
+  <!-- Main hero content sits above the decorative layer (z-index via inline style) -->
+  <div style="position: relative; z-index: 1;">
     <p class="hero-label">DevOps &amp; Infrastructure Engineer</p>
     <h1 class="hero-name">Saugat<br><span>Neupane</span></h1>
     <p class="hero-role">// Building reliable platforms &amp; observable systems</p>
-    <p class="hero-desc">Hands-on experience in Linux, observability, virtualization, cloud, and automation — with a bias for clean infrastructure.</p>
+    <p class="hero-desc">
+      Hands-on experience in Linux, observability, virtualization, cloud, and automation —
+      with a bias for clean infrastructure.
+    </p>
   </div>
 </section>
 
+<!-- ── Objective ── -->
 <section id="objective">
   <div class="section-inner reveal">
     <p class="section-label">About</p>
     <h2 class="section-title">Career Objective</h2>
-    <p class="objective-text">A competent and motivated DevOps/Infrastructure Engineer with hands-on experience in Linux, virtualization, monitoring tools, and scripting languages. Looking for an organization that provides opportunities for learning and growth while contributing to its success.</p>
+    <p class="objective-text">
+      A competent and motivated DevOps/Infrastructure Engineer with hands-on experience in
+      Linux, virtualization, monitoring tools, and scripting languages. Looking for an
+      organization that provides opportunities for learning and growth while contributing
+      to its success.
+    </p>
   </div>
 </section>
 
+<!-- ── Skills ── -->
 <section id="skills">
   <div class="section-inner reveal">
     <p class="section-label">Expertise</p>
@@ -321,6 +593,7 @@
   </div>
 </section>
 
+<!-- ── Experience ── -->
 <section id="experience">
   <div class="section-inner">
     <p class="section-label">Career</p>
@@ -377,6 +650,7 @@
   </div>
 </section>
 
+<!-- ── Education ── -->
 <section id="education">
   <div class="section-inner reveal">
     <p class="section-label">Academic</p>
@@ -401,6 +675,7 @@
   </div>
 </section>
 
+<!-- ── Certifications ── -->
 <section id="training">
   <div class="section-inner reveal">
     <p class="section-label">Certifications</p>
@@ -409,6 +684,7 @@
   </div>
 </section>
 
+<!-- ── Contact ── -->
 <section id="contact">
   <div class="section-inner reveal">
     <p class="section-label">Reach out</p>
@@ -434,28 +710,54 @@
   </div>
 </section>
 
+<!-- ── Footer ── -->
 <footer>
   &copy; 2025 Saugat Neupane. All rights reserved.
 </footer>
 
+<!-- ── Scroll Reveal Script ── -->
 <script>
-  (function() {
-    var reveals = document.querySelectorAll(".reveal");
-    // Show all immediately so page is never blank
-    reveals.forEach(function(el) { el.classList.add("visible"); });
+  /*
+   * Scroll Reveal using IntersectionObserver
+   *
+   * How it works:
+   *  1. We select every element that has the class "reveal".
+   *  2. We show them all immediately (fallback for browsers without IntersectionObserver).
+   *  3. If IntersectionObserver is supported, we reset them to hidden and then
+   *     watch each one. When it enters the viewport we add the "visible" class
+   *     which triggers the CSS transition (fade-in + slide-up).
+   *  4. Once visible, we stop watching that element (unobserve) for efficiency.
+   */
 
-    // Then reset and animate on scroll if IntersectionObserver is available
+  (function () {
+    var revealElements = document.querySelectorAll(".reveal");
+
+    // Step 1: Show all elements immediately (safe fallback)
+    revealElements.forEach(function (el) {
+      el.classList.add("visible");
+    });
+
+    // Step 2: Progressive enhancement — use IntersectionObserver if available
     if ("IntersectionObserver" in window) {
-      reveals.forEach(function(el) { el.classList.remove("visible"); });
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
+      // Reset to hidden so the animation can play
+      revealElements.forEach(function (el) {
+        el.classList.remove("visible");
+      });
+
+      // Create an observer; threshold: 0.05 means trigger when 5% of element is visible
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
+            entry.target.classList.add("visible"); // start CSS transition
+            observer.unobserve(entry.target);       // stop watching this element
           }
         });
       }, { threshold: 0.05 });
-      reveals.forEach(function(el) { observer.observe(el); });
+
+      // Attach observer to every reveal element
+      revealElements.forEach(function (el) {
+        observer.observe(el);
+      });
     }
   })();
 </script>
