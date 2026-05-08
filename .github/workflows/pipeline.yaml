@@ -34,7 +34,7 @@ jobs:
       - name: "Build Docker Image"
         run: |
           docker login -u saugatneupane31 -p $DOCKERHUB_PAT
-          docker build -t saugatneupane31/not-nginx .
+          docker build -t saugatneupane31/portfolio_saugat .
           docker push saugatneupane31/portfolio_saugat
         env:
           DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT }}
