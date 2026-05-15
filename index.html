@@ -749,7 +749,7 @@
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible"); // start CSS transition
-            observer.unobserve(entry.target);       // stop watching this element
+            observer.unobserve(entry.target);       // stop watching this elements
           }
         });
       }, { threshold: 0.05 });
