@@ -58,5 +58,5 @@ jobs:
       - name: "Docker Pull and Restart Docker"
         run: |
           ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull saugatneupane31/portfolio_saugat'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop portfolio_saugat || true && docker rm portfolio_saugat || true'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name portfolio_saugat -p 80:80 -d saugatneupane31/portfolio_saugat'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop portfolio_saugat && docker rm portfolio_saugat'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name portfolio_saugat -p 80:80 -d --restart always saugatneupane31/portfolio_saugat'

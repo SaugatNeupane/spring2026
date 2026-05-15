@@ -112,7 +112,8 @@ Resources:
           apt install docker.io -y
           systemctl start docker
           systemctl enable docker
-          docker run -d -p 80:80 --restart always saugatneupane31/portfolio_saugat
+          usermod -aG docker ubuntu
+          docker run -d -p 80:80 --name portfolio_saugat --restart always saugatneupane31/portfolio_saugat
 
   ElasticIP:
     Type: AWS::EC2::EIP
